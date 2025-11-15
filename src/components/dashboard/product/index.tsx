@@ -1,4 +1,4 @@
-import type { DataType, ProductType } from "../../../@types";
+import type { DataType, ProductType } from "../../../@types/types";
 import { useQueryHendler } from "../../../hooks/useQuery/UseQuery";
 import Card from "./card";
 import ProductHeader from "./product-header";
@@ -33,7 +33,7 @@ const Product = () => {
       <div className="grid grid-cols-3 gap-4 mt-5">
         {isLoading || isError
           ? product_loader()
-          : data?.map((value) => <Card {...value} key={value._id} />)}
+          : data?.map((value: ProductType) => <Card {...value} key={value._id} />)}
       </div>
     </section>
   );

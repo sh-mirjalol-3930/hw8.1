@@ -1,9 +1,8 @@
 import { Form } from "antd";
-import { Link, useNavigate } from "react-router-dom";
-import { CheckOutlined, LoadingOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
+import { LoadingOutlined } from "@ant-design/icons";
 import { useReduxSelector } from "../../../hooks/userRedux/UseRedux";
-import { useEffect, useRef } from "react";
-import { useQueryHendler } from "../../../hooks/useQuery/UseQuery";
+import { useRef } from "react";
 import { useAxios } from "../../../hooks/useAxios/UseAxios";
 import { useDispatch } from "react-redux";
 import { getCouponCode } from "../../../redux/product-slice/ProductSlice";

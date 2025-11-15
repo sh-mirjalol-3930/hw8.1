@@ -4,7 +4,7 @@ import {
   SearchOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import type { ProductType } from "../../../../@types";
+import type { ProductType } from "../../../../@types/types";
 import { useReduxDispatch } from "../../../../hooks/userRedux/UseRedux";
 import { getData } from "../../../../redux/product-slice/ProductSlice";
 import { notificationApi } from "../../../../generic/notification/Notafication";

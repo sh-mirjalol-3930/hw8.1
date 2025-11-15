@@ -7,7 +7,6 @@ import {
   useSignWithGoogle,
 } from "../../../../hooks/useQuery/useQueryActions/UseQueryActions";
 import { LoadingOutlined } from "@ant-design/icons";
-import { signInWithGoogle } from "../../../../config/Config";
 
 const Login = () => {
   const input_style: string = "h-[40px] mt-2 !border-[#46A358]";

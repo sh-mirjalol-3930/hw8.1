@@ -1,6 +1,5 @@
 import { Form } from "antd";
 import { Link } from "react-router-dom";
-import { LoadingOutlined } from "@ant-design/icons";
 import { useReduxSelector } from "../../../hooks/userRedux/UseRedux";
 import { useRef } from "react";
 import { useAxios } from "../../../hooks/useAxios/UseAxios";

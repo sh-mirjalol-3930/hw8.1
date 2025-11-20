@@ -9,7 +9,7 @@ import {
 } from "@ant-design/icons";
 import { Badge } from "antd";
 import { useReduxDispatch, useReduxSelector } from "../../hooks/userRedux/UseRedux";
-import { authorizationModalVisibltiyConf, profileModalVisibilityConf } from "../../redux/modal-slice/ModalSlice";
+import { authorizationModalVisibltiyConf } from "../../redux/modal-slice/ModalSlice";
 import Cookies from "js-cookie";
 
 const Header = () => {
@@ -51,7 +51,7 @@ const Header = () => {
           </Badge>
           {user ? (
             <button
-              onClick={() => dispatch(profileModalVisibilityConf())}
+              onClick={() => navigate("/profile")}
               className="text-white w-auto px-3 h-[35px] bg-[#46A358] flex items-center gap-1 justify-center rounded-md max-md:hidden cursor-pointer hover:bg-[#3a8e47] transition"
             >
               <UserOutlined />

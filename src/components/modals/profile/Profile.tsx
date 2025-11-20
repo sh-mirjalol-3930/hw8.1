@@ -1,12 +1,9 @@
 import { Modal } from "antd";
 import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
-import { useReduxDispatch, useReduxSelector } from "../../../hooks/userRedux/UseRedux";
-import { profileModalVisibilityConf } from "../../../redux/modal-slice/ModalSlice";
+import { useReduxSelector } from "../../../hooks/userRedux/UseRedux";
 import Cookies from "js-cookie";
 
 const Profile = () => {
-  const dispatch = useReduxDispatch();
-  const { profileModalVisibility } = useReduxSelector((state) => state.modalSlice);
   const userCookie = Cookies.get("user");
   const user = userCookie ? JSON.parse(userCookie) : null;
   const favorites = useReduxSelector((state) => state.product_slice.favorites);
@@ -14,15 +11,12 @@ const Profile = () => {
   const handleLogout = () => {
     Cookies.remove("user");
     Cookies.remove("token");
-    dispatch(profileModalVisibilityConf());
     window.location.reload();
   };
 
   return (
     <Modal
       title={<div className="flex items-center gap-2"><UserOutlined /> Profile</div>}
-      open={profileModalVisibility}
-      onCancel={() => dispatch(profileModalVisibilityConf())}
       footer={null}
       centered
     >

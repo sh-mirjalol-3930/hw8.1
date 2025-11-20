@@ -10,9 +10,7 @@ const PriceRange = () => {
   const type = paramValue("type") || "all-plants";
   const sort = paramValue("sort") || "default-sorting";
   const range = (e: RangeType) => {
-    // setValue(e);
     setValue(e);
-    console.log(value);
   };
   return (
     <div>

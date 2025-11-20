@@ -1,11 +1,11 @@
 import { DeleteOutlined } from "@ant-design/icons";
 import type { FC } from "react";
 import { useReduxDispatch } from "../../../hooks/userRedux/UseRedux";
-import { removeData } from "../../../redux/product-slice/ProductSlice";
+import { removeData, incrementQuantity, decrementQuantity } from "../../../redux/product-slice/ProductSlice";
 import type { ProductType } from "../../../@types/types";
 
 const ProductCard: FC<ProductType> = (props) => {
-  const btn_style = "w-[25px] h-[25px] bg-[#46A358] rounded-full text-white";
+  const btn_style = "w-[25px] h-[25px] bg-[#46A358] rounded-full text-white cursor-pointer hover:bg-[#3a8e47] transition flex items-center justify-center text-[12px]";
   const dispatch = useReduxDispatch();
   return (
     <div className="flex items-center bg-[#FBFBFB] p-1 mt-[11px] max-sm:flex-col max-sm:items-start w-full">
@@ -24,9 +24,9 @@ const ProductCard: FC<ProductType> = (props) => {
       </h2>
       <div className="w-[32%] flex items-center justify-between max-sm:w-full">
         <div className="flex items-center gap-2 w-[80%]">
-          <button className={`${btn_style}`}>-</button>
+          <button onClick={() => dispatch(decrementQuantity(props._id))} className={`${btn_style}`}>−</button>
           <h2 className="text-[17px]">{props.count}</h2>
-          <button className={`${btn_style}`}>+</button>
+          <button onClick={() => dispatch(incrementQuantity(props._id))} className={`${btn_style}`}>+</button>
         </div>
         <div className="flex w-[50%] justify-between gap-3">
           <h2 className=" text-[#727272] text-[16px] font-medium pl-3">

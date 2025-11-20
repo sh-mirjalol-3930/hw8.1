@@ -11,10 +11,9 @@ const CartTotal = () => {
   const { data, coupon } = useReduxSelector((state) => state.product_slice);
   const couponRef = useRef<HTMLInputElement>(null);
 
-  console.log(coupon);
   const totalPrice = data.reduce(
     (acc, value) => (acc += value.userPrice as number),
-    16
+    0
   );
   const dispatch = useDispatch();
 
@@ -53,14 +52,16 @@ const CartTotal = () => {
       <div className="mt-[20px]">
         <div className="flex justify-between items-center pt-3">
           <h3 className={`${cupon_title_style}`}>Subtotal</h3>
-          <h2 className="text-[#3D3D3D] text-[18px] font-medium">$</h2>
+          <h2 className="text-[#3D3D3D] text-[18px] font-medium">${totalPrice?.toFixed(2)}</h2>
         </div>
         <div className="flex justify-between items-center pt-3">
           <h3 className={`${cupon_title_style}`}>Coupon Discount</h3>
-          <h2 className="text-[#3D3D3D] text-[15px]">0$</h2>
+          <h2 className="text-[#3D3D3D] text-[15px]">
+            {coupon ? `-${((totalPrice * coupon) / 100).toFixed(2)}$` : "0$"}
+          </h2>
         </div>
         <div className="flex justify-between items-center pt-3">
-          <h3 className={`${cupon_title_style}`}>Shiping</h3>
+          <h3 className={`${cupon_title_style}`}>Shipping</h3>
           <h2 className="text-[#3D3D3D] text-[18px] font-medium">$16.00</h2>
         </div>
       </div>

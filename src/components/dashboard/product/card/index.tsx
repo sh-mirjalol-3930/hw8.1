@@ -14,6 +14,8 @@ const Card: FC<ProductType> = (props) => {
     "bg-[#FFFFFF] w-[35px] h-[35px] flex rounded-lg justify-center items-center  cursor-pointer text-[20px]";
   const dispatch = useReduxDispatch();
   const notify = notificationApi();
+  const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+  const isFavorite = favorites.some((item: ProductType) => item._id === props._id);
   return (
     <>
       <div className="relative">
@@ -29,7 +31,17 @@ const Card: FC<ProductType> = (props) => {
             >
               <ShoppingCartOutlined />
             </div>
-            <div className={`${icon_style}`}>
+            <div
+              className={`${icon_style} ${isFavorite ? "text-[#46A358]" : ""}`}
+              onClick={() => {
+                if (isFavorite) {
+                  dispatch({ type: "product/removeFavorite", payload: props._id });
+                } else {
+                  dispatch({ type: "product/addFavorite", payload: props });
+                }
+              }}
+              title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+            >
               <HeartOutlined />
             </div>
             <div className={`${icon_style}`}>

@@ -4,6 +4,7 @@ import {
   SearchOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 import type { ProductType } from "../../../../@types/types";
 import { useReduxDispatch } from "../../../../hooks/userRedux/UseRedux";
 import { getData } from "../../../../redux/product-slice/ProductSlice";
@@ -16,11 +17,17 @@ const Card: FC<ProductType> = (props) => {
   const notify = notificationApi();
   const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
   const isFavorite = favorites.some((item: ProductType) => item._id === props._id);
+  const navigate = useNavigate();
   return (
     <>
       <div className="relative">
         <div className="group h-[300px] bg-[#f5f5f5] flex justify-center items-center relative">
-          <img src={props.main_image} alt="flower" className="w-3/5" />
+          <img
+            src={props.main_image}
+            alt="flower"
+            className="w-3/5 cursor-pointer"
+            onClick={() => navigate(`/product/${props._id}`, { state: props })}
+          />
           <div className="hidden gap-3 justify-center inset-x-auto absolute bottom-[20px] items-center group-hover:flex max-md:flex">
             <div
               onClick={() => {
@@ -39,12 +46,21 @@ const Card: FC<ProductType> = (props) => {
                 } else {
                   dispatch({ type: "product/addFavorite", payload: props });
                 }
+                if (isFavorite) {
+                  notify("remove_from_favorites");
+                } else {
+                  notify("add_to_favorites");
+                }
               }}
               title={isFavorite ? "Remove from favorites" : "Add to favorites"}
             >
               <HeartOutlined />
             </div>
-            <div className={`${icon_style}`}>
+            <div
+              className={`${icon_style} cursor-pointer`}
+              onClick={() => navigate(`/product/${props._id}`, { state: props })}
+              title="View details"
+            >
               <SearchOutlined />
             </div>
           </div>

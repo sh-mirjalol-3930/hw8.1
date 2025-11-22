@@ -5,6 +5,7 @@ import Layout from "../pages/layout/Layout";
 import Blog from "../pages/blog/Blog";
 import Favorites from "../pages/favorites/Favorites";
 import Profile from "../pages/profile/Profile";
+import ProductDetails from "../pages/product/ProductDetails";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />,
+      },
+      {
+        path: "/product/:id",
+        element: <ProductDetails />,
       },
     ]
   }

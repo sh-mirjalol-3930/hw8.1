@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { UserOutlined, LogoutOutlined, HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+import { UserOutlined, LogoutOutlined, HeartOutlined, ShoppingCartOutlined, MailOutlined, PhoneOutlined, EnvironmentOutlined } from "@ant-design/icons";
 import { useReduxSelector } from "../../hooks/userRedux/UseRedux";
 import Cookies from "js-cookie";
 
@@ -33,25 +33,36 @@ const Profile = () => {
 
   return (
     <div className="w-[90%] m-auto my-[50px]">
-      {/* User Information */}
+      {/* Profile Header */}
       <div className="grid grid-cols-3 gap-8 mb-10 max-lg:grid-cols-1">
-        {/* Profile Card */}
+        {/* Profile Card with Photo */}
         <div className="bg-gradient-to-br from-[#46A358] to-[#3a8e47] text-white p-8 rounded-lg shadow-lg col-span-1">
           <div className="flex flex-col items-center gap-4">
-            <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center">
-              <UserOutlined className="text-[40px] text-[#46A358]" />
-            </div>
+            {user?.profile_photo ? (
+              <img
+                src={user.profile_photo}
+                alt={user.name}
+                className="w-24 h-24 rounded-full object-cover border-4 border-white"
+              />
+            ) : (
+              <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center">
+                <UserOutlined className="text-[50px] text-[#46A358]" />
+              </div>
+            )}
             <div className="text-center">
               <h2 className="text-2xl font-bold">{user?.name}</h2>
               {user?.surname && <p className="text-sm opacity-90">{user?.surname}</p>}
+              <p className="text-xs opacity-75 mt-1">@{user?.username || user?._id?.slice(0, 8)}</p>
             </div>
           </div>
         </div>
 
-        {/* Stats Cards */}
+        {/* User Stats and Basic Info */}
         <div className="flex flex-col gap-4 col-span-2 max-lg:col-span-1">
           <div className="bg-[#f2f2f2] p-6 rounded-lg">
-            <h3 className="text-[#46A358] font-bold mb-2">Email</h3>
+            <h3 className="text-[#46A358] font-bold mb-2 flex items-center gap-2">
+              <MailOutlined /> Email
+            </h3>
             <p className="text-[#3d3d3d]">{user?.email}</p>
           </div>
           <div className="grid grid-cols-2 gap-4">
@@ -68,6 +79,64 @@ const Profile = () => {
           </div>
         </div>
       </div>
+
+      {/* Contact Information */}
+      <div className="bg-white border-l-4 border-[#46A358] p-6 rounded-lg mb-10">
+        <h2 className="text-2xl font-bold text-[#3d3d3d] mb-4">Contact Information</h2>
+        <div className="grid grid-cols-2 gap-6 max-sm:grid-cols-1">
+          {user?.phone_number && (
+            <div>
+              <p className="text-[#727272] text-sm font-semibold flex items-center gap-2">
+                <PhoneOutlined className="text-[#46A358]" /> Phone
+              </p>
+              <p className="text-[#3d3d3d]">{user.phone_number}</p>
+            </div>
+          )}
+          <div>
+            <p className="text-[#727272] text-sm font-semibold">User Type</p>
+            <p className="text-[#3d3d3d] capitalize">{user?.user_type || "Not specified"}</p>
+          </div>
+          {user?.created_at && (
+            <div>
+              <p className="text-[#727272] text-sm font-semibold">Member Since</p>
+              <p className="text-[#3d3d3d]">{new Date(user.created_at).toLocaleDateString()}</p>
+            </div>
+          )}
+          {user?.permission && (
+            <div>
+              <p className="text-[#727272] text-sm font-semibold">Permissions</p>
+              <p className="text-[#3d3d3d] text-sm">
+                Read: <span className={user.permission.read ? "text-green-600" : "text-red-600"}>●</span>
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Billing Address */}
+      {user?.billing_address && (user.billing_address.street_address || user.billing_address.town || user.billing_address.country) && (
+        <div className="bg-white border-l-4 border-[#46A358] p-6 rounded-lg mb-10">
+          <h2 className="text-2xl font-bold text-[#3d3d3d] mb-4 flex items-center gap-2">
+            <EnvironmentOutlined className="text-[#46A358]" /> Billing Address
+          </h2>
+          <div className="grid grid-cols-2 gap-4 max-sm:grid-cols-1 text-[#3d3d3d]">
+            {user.billing_address.street_address && <p><span className="font-bold">Street:</span> {user.billing_address.street_address}</p>}
+            {user.billing_address.town && <p><span className="font-bold">Town:</span> {user.billing_address.town}</p>}
+            {user.billing_address.state && <p><span className="font-bold">State:</span> {user.billing_address.state}</p>}
+            {user.billing_address.country && <p><span className="font-bold">Country:</span> {user.billing_address.country}</p>}
+            {user.billing_address.zip && <p><span className="font-bold">ZIP:</span> {user.billing_address.zip}</p>}
+            {user.billing_address.extra_address && <p className="col-span-2"><span className="font-bold">Extra:</span> {user.billing_address.extra_address}</p>}
+          </div>
+        </div>
+      )}
+
+      {/* Followers */}
+      {user?.followers && user.followers.length > 0 && (
+        <div className="bg-[#f2f2f2] p-6 rounded-lg mb-10">
+          <h3 className="text-lg font-bold text-[#3d3d3d] mb-3">Followers ({user.followers.length})</h3>
+          <p className="text-[#727272]">{user.followers.length} followers</p>
+        </div>
+      )}
 
       {/* Liked Products Section */}
       <div className="mb-10">

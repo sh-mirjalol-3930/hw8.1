@@ -4,6 +4,7 @@ import {
   HomeOutlined,
   HeartOutlined,
   FileTextOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
 // (no redux selectors needed here)
 import Cookies from "js-cookie";
@@ -62,7 +63,7 @@ const Profile = () => {
               <li className="flex items-center gap-3 text-[#6b6b6b]"><FileTextOutlined /> My Products</li>
               <li className="flex items-center gap-3 text-[#6b6b6b]"><HomeOutlined /> Address</li>
               <li className="flex items-center gap-3 text-[#6b6b6b]"><HeartOutlined /> Wishlist</li>
-              <li className="flex items-center gap-3 text-red-500 cursor-pointer" onClick={handleLogout}>🔁 Log out</li>
+              <li className="flex items-center gap-3 text-red-500 cursor-pointer" onClick={handleLogout}><LogoutOutlined/> Log out</li>
             </ul>
           </div>
         </aside>

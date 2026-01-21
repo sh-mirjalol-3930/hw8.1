@@ -1,11 +1,5 @@
 import { notification } from "antd";
 
-type NotifyType =
-  | "confirm_password"
-  | "add_to_cart"
-  | "add_to_favorites"
-  | "remove_from_favorites";
-
 export const notificationApi = (): ((type: any) => void) => {
   const notify = (type: any) => {
     switch (type) {

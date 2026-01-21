@@ -1,4 +1,4 @@
-import { useLocation, useParams, useNavigate } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useReduxSelector, useReduxDispatch } from "../../hooks/userRedux/UseRedux";
 import { getData, addFavorite, removeFavorite } from "../../redux/product-slice/ProductSlice";
 import { notificationApi } from "../../generic/notification/Notafication";
